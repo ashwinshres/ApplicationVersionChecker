@@ -68,12 +68,14 @@ class AppVersionChecker {
         }
     }
     
-    private func configureOptionalUpdate(with response: AppVersionCheckResponse) {
-        if let lastUpdateDialogTime = AppVersionCheckerHelper.getLastOptionalUpdateTime(),
-            let timeStampNow = AppVersionCheckerHelper.getTimeInterval(),
-            timeStampNow > lastUpdateDialogTime + (AppVersionChecker.shared.appUpdateTimeInterval){
+    private  func configureOptionalUpdate(with response: AppVersionCheckResponse) {
+        guard let lastUpdateDialogTime = AppVersionCheckerHelper.getLastOptionalUpdateTime() else {
             AppVersionChecker.shared.showOptionalUpdateAlert(with: response)
-        } else {
+            return
+        }
+        
+        if let timeStampNow = AppVersionCheckerHelper.getTimeInterval(),
+            timeStampNow > lastUpdateDialogTime + (AppVersionChecker.shared.appUpdateTimeInterval){
             AppVersionChecker.shared.showOptionalUpdateAlert(with: response)
         }
     }

@@ -12,6 +12,7 @@ struct AppVersionCheckConstants {
     
     struct UserDefaultKeys {
         static let lastUpdateDialogTime = "LastUpdateDialogTime"
+        static let lastVersionNumber = "NEWVERSIONNUMBER"
     }
     
     struct WebServiceCodes {

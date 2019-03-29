@@ -21,9 +21,19 @@ class AppVersionCheckerHelper {
         UserDefaults.standard.setValue(data, forKey: AppVersionCheckConstants.UserDefaultKeys.lastUpdateDialogTime)
     }
     
+    static func setNewVersion(versionNumber: String) {
+        let data = NSKeyedArchiver.archivedData(withRootObject: versionNumber)
+        UserDefaults.standard.setValue(data, forKey: AppVersionCheckConstants.UserDefaultKeys.lastVersionNumber)
+    }
+    
     static func getLastOptionalUpdateTime() -> TimeInterval? {
         guard let data = UserDefaults.standard.value(forKey: AppVersionCheckConstants.UserDefaultKeys.lastUpdateDialogTime) else { return nil }
         return NSKeyedUnarchiver.unarchiveObject(with: (data as! NSData) as Data) as? TimeInterval
+    }
+    
+    static func getNewVersionNumber() -> String? {
+        guard let data = UserDefaults.standard.value(forKey: AppVersionCheckConstants.UserDefaultKeys.lastVersionNumber) else { return nil }
+        return NSKeyedUnarchiver.unarchiveObject(with: (data as! NSData) as Data) as? String
     }
     
     static func getTimeInterval(toDate: Date = Date()) -> TimeInterval? {
